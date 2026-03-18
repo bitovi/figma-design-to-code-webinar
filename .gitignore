@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.temp/
+storybook-static/
+*.local
+.env
+.env.*
+coverage/
+test-results/
+playwright-report/
