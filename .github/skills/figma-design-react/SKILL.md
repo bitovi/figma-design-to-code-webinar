@@ -49,13 +49,15 @@ The component API should mirror how the design is structured in Figma, not how a
 ┌─────────────────────────────────────────────────────────────────┐
 │ 1. FETCH - Get Figma design context using MCP                  │
 ├─────────────────────────────────────────────────────────────────┤
-│ 2. VALIDATE - Screenshot verification                           │
+│ 2. TOKENS - Get variable definitions to resolve design tokens  │
 ├─────────────────────────────────────────────────────────────────┤
-│ 3. SAVE - Store design context in .temp/design-components/     │
+│ 3. VALIDATE - Screenshot verification                           │
 ├─────────────────────────────────────────────────────────────────┤
-│ 4. ANALYZE - Review variants, properties, and nested components│
+│ 4. SAVE - Store design context in .temp/design-components/     │
 ├─────────────────────────────────────────────────────────────────┤
-│ 5. PROPOSE - Suggest component API(s) with props and types     │
+│ 5. ANALYZE - Review variants, properties, and nested components│
+├─────────────────────────────────────────────────────────────────┤
+│ 6. PROPOSE - Suggest component API(s) with props and types     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -67,13 +69,15 @@ The component API should mirror how the design is structured in Figma, not how a
 
 2. **If the response is too large or truncated**, run `get_metadata` to get the high-level node map and then re-fetch only the required node(s) with `get_design_context`.
 
-3. **Run `get_screenshot`** for a visual reference of the node variant being implemented.
+3. **Run `get_variable_defs`** with the same `fileKey` to resolve design token names to their semantic meaning across modes (light, dark, brand). Use this to understand what each token represents so the proposed API notes can reference the correct project CSS variables rather than hardcoded hex fallbacks.
 
-4. **Only after you have both `get_design_context` and `get_screenshot`**, download any assets needed and start implementation.
+4. **Run `get_screenshot`** for a visual reference of the node variant being implemented.
 
-5. **Translate the output** into this project's conventions, styles and framework. Reuse the project's color tokens, components, and typography wherever possible.
+5. **Only after you have `get_design_context`, `get_variable_defs`, and `get_screenshot`**,, download any assets needed and start implementation.
 
-6. **Validate against Figma** for 1:1 look and behavior before marking complete.
+6. **Translate the output** into this project's conventions, styles and framework. Reuse the project's color tokens, components, and typography wherever possible.
+
+7. **Validate against Figma** for 1:1 look and behavior before marking complete.
 
 ## Step-by-Step Instructions
 
@@ -87,7 +91,14 @@ Call `mcp_figma_get_design_context` with:
 - `nodeId`: The extracted node ID
 - `fileKey`: The extracted file key
 
-### Step 2: Create Output Directory and Save Design Context
+### Step 2: Fetch Variable Definitions
+
+Call `mcp_figma_get_variable_defs` with:
+- `fileKey`: The extracted file key
+
+This returns all design tokens and their values across every mode (e.g. light/dark, brand themes). Cross-reference the token names found in the `get_design_context` output against the project's CSS variables in `src/index.css`. Include any relevant token-to-project-variable mappings as notes in `proposed-api.md` rather than as a separate file.
+
+### Step 3: Create Output Directory and Save Design Context
 
 Create the output directory:
 ```
@@ -338,7 +349,7 @@ Keep as one component when:
 ```
 .temp/design-components/{component-name}/
 ├── design-context.md    # Raw Figma data + URL
-└── proposed-api.md      # Suggested component API(s)
+└── proposed-api.md      # Suggested component API(s) + token notes
 ```
 
 ## Example Session
@@ -347,10 +358,11 @@ Keep as one component when:
 
 **Agent:**
 1. Fetches design context via MCP
-2. Creates `.temp/design-components/button/`
-3. Saves `design-context.md` with Figma data
-4. Analyzes variants (Size, Type, State) and properties (Has Icon, Label)
-5. Creates `proposed-api.md` with:
+2. Fetches variable definitions via MCP to understand token semantics across modes
+3. Creates `.temp/design-components/button/`
+4. Saves `design-context.md` with Figma data
+5. Analyzes variants (Size, Type, State) and properties (Has Icon, Label)
+6. Creates `proposed-api.md` with:
    - `ButtonProps` interface
    - Mapping table from Figma to props
    - Note that State: Hover/Pressed/Focused are handled by CSS
