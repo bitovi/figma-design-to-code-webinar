@@ -42,6 +42,9 @@ export type { DialogTitleProps } from './Dialog';
 export { DialogDescription } from './Dialog';
 export type { DialogDescriptionProps } from './Dialog';
 
+export { IconButton, iconButtonVariants } from './IconButton';
+export type { IconButtonProps, IconButtonVariantProps } from './IconButton';
+
 export { Input } from './Input';
 export type { InputProps } from './Input';
 
