@@ -28,6 +28,7 @@ export function Dialog({
   children,
   onClose,
   header,
+  footer,
   cancelButton,
   actionButton,
   className,
@@ -72,10 +73,12 @@ export function Dialog({
           >
             {children}
           </div>
-          <div className="flex items-center justify-end gap-2 p-4 shrink-0 w-full">
-            {cancelButton}
-            {actionButton}
-          </div>
+          {footer ?? (
+            <div className="flex items-center justify-end gap-2 p-4 shrink-0 w-full">
+              {cancelButton}
+              {actionButton}
+            </div>
+          )}
         </>
       ) : (
         <>

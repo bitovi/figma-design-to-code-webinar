@@ -13,6 +13,7 @@ export interface DialogProps {
   onOpenChange?: (open: boolean) => void;
   onClose?: () => void;
   header?: React.ReactNode;
+  footer?: React.ReactNode;
   cancelButton?: React.ReactNode;
   actionButton?: React.ReactNode;
   className?: string;
