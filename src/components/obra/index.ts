@@ -8,3 +8,5 @@ export { Avatar } from './Avatar';
 export type { AvatarProps } from './Avatar';
 export { Input } from './Input';
 export type { InputProps } from './Input';
+export { DialogFooter } from './DialogFooter';
+export type { DialogFooterProps, DialogFooterType } from './DialogFooter';
