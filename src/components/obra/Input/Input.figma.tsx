@@ -21,11 +21,11 @@ figma.connect(Input, 'https://www.figma.com/design/z6KFvMeKnhIAGbQP7tOSkE/Obra-s
       Disabled: true,
     }),
     leftDecoration: figma.boolean('Show decoration left', {
-      true: figma.instance('Decoration left'),
+      true: <span>Icon</span>,
       false: undefined,
     }),
     rightDecoration: figma.boolean('Show decoration right', {
-      true: figma.instance('Decoration right'),
+      true: <span>Icon</span>,
       false: undefined,
     }),
     prependText: figma.boolean('Show prepend text', {

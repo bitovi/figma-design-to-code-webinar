@@ -263,7 +263,9 @@ figma.instance('Icon').render<{ id: string }>(props => <CustomIcon id={props.id}
 ```
 
 ### Variant Restrictions
-Use when one Figma component maps to multiple code components:
+
+Only use this pattern when different Figma variants map to entirely different React components. If all variants map to the same React component with different props, use a single `figma.connect()`: 
+
 
 ```tsx
 figma.connect(PrimaryButton, 'https://...', {
