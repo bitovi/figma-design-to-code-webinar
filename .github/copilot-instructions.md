@@ -3,7 +3,7 @@
 ## Project Overview
 
 This is a focused component library and Storybook showcasing the Figura Design to Code workflow.
-It contains the Obra UI component system and a `TeamDirectoryModal` example built during the webinar.
+It contains the Obra UI component system and a `CommonComponent` example built during the webinar.
 
 ## Skills
 
@@ -31,7 +31,7 @@ src/
 ├── components/
 │   ├── obra/            # Obra design system UI components
 │   └── common/          # Shared reusable components
-│       └── TeamDirectoryModal/
+│       └── CommonComponent/
 ├── lib/
 │   └── utils.ts         # cn() utility
 ├── index.css            # Global styles + CSS design tokens

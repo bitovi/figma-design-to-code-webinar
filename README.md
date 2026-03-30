@@ -34,7 +34,7 @@ Ready-to-use, Figma-connected components:
 
 | Component | Description |
 |-----------|-------------|
-| `TeamDirectoryModal` | Scrollable team member list modal — *built live in webinar* |
+
 
 ## Getting Started
 

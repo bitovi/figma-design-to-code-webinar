@@ -21,7 +21,7 @@ src/
 
 ## Naming Conventions
 
-- **PascalCase** for component folders: `Button/`, `Avatar/`, `TeamDirectoryModal/`
+- **PascalCase** for component folders: `Button/`, `Avatar/`
 - **kebab-case** for grouping/utility folders (non-components)
 - **lowercase** for standard folders: `components/`, `lib/`
 
