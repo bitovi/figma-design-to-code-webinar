@@ -12,6 +12,17 @@ Before implementing any feature:
 2. Apply skills that match your task
 3. Follow skill workflows to prevent common mistakes
 
+### Skill Execution Rules
+
+When executing any skill that has a `steps/` folder:
+
+1. Read `steps/00-todo-setup.md` first before writing any code or creating any files
+2. Copy the todo list exactly from that file** using `manage_todo_list` — do NOT improvise or derive it from memory
+3. Mark each todo `in-progress` before starting it and `completed` immediately after finishing
+4. Do not skip steps every item in the canonical list must be completed or explicitly blocked
+
+Skipping the todo setup step causes downstream steps to be silently omitted.
+
 | Skill | Purpose | When to Use |
 |-------|---------|-------------|
 | `component-reuse` | Ensure existing UI components are reused before creating new ones | Before implementing any UI from Figma |

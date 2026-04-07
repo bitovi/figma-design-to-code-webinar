@@ -47,6 +47,8 @@ The component API should mirror how the design is structured in Figma, not how a
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
+│ 0. TODO - Create a todo list         │
+├─────────────────────────────────────────────────────────────────┤
 │ 1. FETCH - Get Figma design context using MCP                  │
 ├─────────────────────────────────────────────────────────────────┤
 │ 2. TOKENS - Get variable definitions to resolve design tokens  │
@@ -64,6 +66,21 @@ The component API should mirror how the design is structured in Figma, not how a
 ## Required Flow
 
 **Follow this sequence exactly:**
+
+0. Create a todo list using `manage_todo_list` before doing any work, then mark each item `in-progress` before starting and `completed` immediately after finishing:
+
+   ```javascript
+   manage_todo_list({
+     todoList: [
+       { id: 1, title: 'Parse URL and fetch design context', status: 'not-started' },
+       { id: 2, title: 'Fetch variable definitions', status: 'not-started' },
+       { id: 3, title: 'Take screenshot for visual reference', status: 'not-started' },
+       { id: 4, title: 'Save design context to .temp/', status: 'not-started' },
+       { id: 5, title: 'Analyze variants and component structure', status: 'not-started' },
+       { id: 6, title: 'Propose component API', status: 'not-started' },
+     ]
+   })
+   ```
 
 1. **Run `get_design_context` first** to fetch the structured representation for the exact node(s).
 
@@ -107,7 +124,7 @@ Create the output directory:
 
 Where `{COMPONENT_NAME}` is derived from the Figma component name (kebab-case).
 
-Save the design context to `.temp/design-components/{COMPONENT_NAME}/design-context.md`:
+Save the design context to `.temp/design-components/{COMPONENT_NAME}/design-context.md` even if the response was sparse metadata, truncated, or required multiple sub-node fetches. Append additional `get_design_context` responses as needed:
 
 ```markdown
 # Design Context: {ComponentName}

@@ -43,6 +43,17 @@ This skill checks a component's implementation against its Figma design source a
 
 ## Step-by-Step Instructions
 
+Before starting any work, call `manage_todo_list` with the following items and mark each one `in-progress` before starting it and `completed` immediately after finishing:
+
+```
+1. Fetch Figma design context and read component source
+2. Trace internal dependencies and map property ownership
+3. Generate comparison report (comparison.md)
+4. Present findings and prompt user for decisions
+5. Apply approved changes to source files
+6. Verify implementation against Figma
+```
+
 ### Step 1: Initialize Check
 
 Given a component path (e.g., `packages/client/src/components/inline-edit/EditableText`):

@@ -91,15 +91,18 @@ If the user doesn't provide a Figma URL, ask for it before proceeding.
 Use the `figma-implement-component` skill by reading the skill file and following its instructions:
 
 1. Read the skill: `.github/skills/figma-implement-component/SKILL.md`
-2. Follow the skill workflow to:
+2. Read every step file listed in the skill's Table of Contents before writing any code
+3. Follow the skill workflow to:
    - Create modlet folder structure
+   - write README
    - Implement component matching Figma design
    - Create Storybook stories for all variants
    - Write comprehensive tests
    - Add exports to parent index.ts
    - Verify TypeScript compiles and tests pass
+   - Run Playwright visual tests 
 
-3. The skill will use `manage_todo_list` to track progress through 10 implementation steps
+4. The skill will use `manage_todo_list` to track progress through 10 implementation steps
 
 4. Once implementation is verified, report completion:
    ```
@@ -174,10 +177,12 @@ Before marking each phase complete:
 - [ ] User has reviewed and approved
 
 **Phase 2 (Implementation):**
+- [ ] README.md created with Figma source and design-to-code mapping
 - [ ] TypeScript compiles without errors
 - [ ] All tests pass
 - [ ] Storybook stories render correctly
 - [ ] Component exported from parent index.ts
+- [ ] Playwright visual tests completed against Figma design
 
 **Phase 3 (Code Connect):**
 - [ ] .figma.tsx file created

@@ -62,12 +62,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div
         className={cn(
-          'bg-[var(--input,#fff)] border border-solid flex items-center overflow-hidden w-full',
+          'bg-[var(--input,#ffffff)] border border-solid flex items-center overflow-hidden w-full',
           'shadow-xs',
-          'focus-within:shadow-[0_0_0_3px_var(--ring,#cbd5e1)] focus-within:border-[var(--border-4,#94a3b8)]',
+          'focus-within:shadow-[0_0_0_3px_var(--ring,#d4d4d4)] focus-within:border-[var(--border-4,#a3a3a3)]',
           hasError && 'border-[var(--destructive-border,#ef4444)] shadow-none',
           hasError && 'focus-within:shadow-[0_0_0_3px_var(--ring-error,#fca5a5)] focus-within:border-[var(--destructive-border,#ef4444)]',
-          !hasError && 'border-[var(--border,#e2e8f0)]',
+          !hasError && 'border-[var(--border,#e5e5e5)]',
           disabled && 'opacity-50 cursor-not-allowed',
           wrapper,
           radius,
@@ -84,7 +84,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {prependText && (
             <span
               className={cn(
-                'shrink-0 text-[var(--muted-foreground,#64748b)] whitespace-nowrap',
+                'shrink-0 text-[var(--muted-foreground,#737373)] whitespace-nowrap',
                 text
               )}
             >
@@ -96,7 +96,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             disabled={disabled}
             className={cn(
               'flex-1 min-w-0 bg-transparent outline-none border-none',
-              'text-[var(--foreground,#020617)] placeholder:text-[var(--muted-foreground,#64748b)]',
+              'text-[var(--foreground,#0a0a0a)] placeholder:text-[var(--muted-foreground,#737373)]',
               'disabled:cursor-not-allowed',
               text
             )}
@@ -105,7 +105,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           {appendText && (
             <span
               className={cn(
-                'shrink-0 text-[var(--muted-foreground,#64748b)] whitespace-nowrap',
+                'shrink-0 text-[var(--muted-foreground,#737373)] whitespace-nowrap',
                 text
               )}
             >

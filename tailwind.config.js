@@ -8,9 +8,16 @@ export default {
   			xs: '0 1px 2px 0 rgb(0 0 0 / 0.05)'
   		},
   		borderRadius: {
-  			lg: 'var(--radius)',
-  			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			none: 'var(--radius-none)',
+  			xs: 'var(--radius-xs)',
+  			sm: 'var(--radius-sm)',
+  			md: 'var(--radius-md)',
+  			lg: 'var(--radius-lg)',
+  			DEFAULT: 'var(--radius)',
+  			xl: 'var(--radius-xl)',
+  			'2xl': 'var(--radius-2xl)',
+  			'3xl': 'var(--radius-3xl)',
+  			full: 'var(--radius-full)',
   		},
   		colors: {
   			/* ========================================
@@ -191,6 +198,14 @@ export default {
   			backdrop: 'var(--backdrop)',
   			'mid-alt': 'var(--mid-alt)',
   			'body-background': 'var(--body-background)',
+  			brand: {
+  				'1': 'var(--brand-1)',
+  				'1-foreground': 'var(--brand-1-foreground)',
+  				'2': 'var(--brand-2)',
+  				'2-foreground': 'var(--brand-2-foreground)',
+  				'3': 'var(--brand-3)',
+  				'3-foreground': 'var(--brand-3-foreground)',
+  			},
   			sidebar: {
   				DEFAULT: 'var(--sidebar)',
   				foreground: 'var(--sidebar-foreground)',
@@ -206,7 +221,13 @@ export default {
   				'2': 'var(--chart-2)',
   				'3': 'var(--chart-3)',
   				'4': 'var(--chart-4)',
-  				'5': 'var(--chart-5)'
+  				'5': 'var(--chart-5)',
+  				positive: 'var(--chart-positive)',
+  				negative: 'var(--chart-negative)',
+  				'shades-fill': 'var(--chart-shades-fill)',
+  				'shades-stroke': 'var(--chart-shades-stroke)',
+  				'shades-fill-2': 'var(--chart-shades-fill-2)',
+  				'shades-stroke-2': 'var(--chart-shades-stroke-2)',
   			}
   		},
   		keyframes: {

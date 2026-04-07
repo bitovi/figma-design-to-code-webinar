@@ -59,10 +59,10 @@ export function Avatar({
         />
       ) : (
         <>
-          <div className="absolute inset-0 bg-[var(--accent,#f1f5f9)]" />
+          <div className="absolute inset-0 bg-[var(--accent,#f5f5f5)]" />
           <span
             className={cn(
-              'absolute inset-0 flex items-center justify-center text-[var(--foreground,#020617)]',
+              'absolute inset-0 flex items-center justify-center text-[var(--foreground,#0a0a0a)]',
               initialsTextClasses[size]
             )}
           >
