@@ -1,6 +1,8 @@
 ---
 name: figma-design-react
-description: Design React components from Figma files. Use when given a Figma URL to analyze a design and propose React component architecture, props API, and variant handling. Outputs design analysis and suggested API - does not build components.
+description: Design React components from Figma files. Use when given a Figma URL to analyze a design and propose React component architecture, props API, and variant handling. Outputs design analysis and suggested API - does not build components. Also triggers on phrases like "analyze this Figma", "what props should this component have", "design the API for this", "plan this component from Figma".
+argument-hint: "<figma-url>"
+user-invocable: true
 ---
 
 # Skill: Design React Components from Figma
@@ -245,6 +247,21 @@ Extract and analyze:
    The Figma design represents one use case, but the component should support flexible button configurations to handle all dialog scenarios.
    ```
 
+### Step 3b: Identify the Interaction Model
+
+Before proposing any API, explicitly answer: **Is this component stateless, internally stateful, or externally controlled?**
+
+| Model | Description | Example |
+|-------|-------------|---------|
+| **Stateless** | No state pure display | Badge, Avatar, Divider |
+| **Internally stateful** | Component owns its open/closed state | Accordion with no controlled prop |
+| **Externally controlled** | Consumer drives state via props | Checkbox with `checked` + `onCheckedChange` |
+| **Hybrid** | Supports both (uncontrolled default + optional controlled) | Select with `defaultValue` and `value` |
+
+Document this explicitly in `proposed-api.md`. It determines which props are required, which are optional, and whether `default*` variants are needed.
+
+**Complexity budget:** If the proposed API would have more than 8 props OR the component contains 3+ structurally distinct sub-layouts, evaluate whether to split into multiple components before writing the interface.
+
 ### Step 4: Propose Component API
 
 Based on the analysis, create `.temp/design-components/{COMPONENT_NAME}/proposed-api.md`:
@@ -407,6 +424,16 @@ Excluded: Hover, Pressed, Focused states (CSS handles these)
 
 See full details: `.temp/design-components/button/proposed-api.md`
 ```
+
+## What NOT to Do
+
+These mistakes produce wrong APIs that require complete rewrites:
+
+- **Don't propose a stateless API for a controlled input.** A Checkbox, Select, or Toggle always needs `value`/`onChange` or `defaultValue` + `onChange`. Check the interaction model before writing the interface.
+- **Don't map focus/hover/pressed Figma states to props.** These are CSS pseudo-classes (`hover:`, `focus-visible:`, `active:`), not props. The only exception is `disabled`.
+- **Don't impose external component library patterns.** Figma is the source of truth. If Figma shows a vertical layout for `type="mobile"`, don't invent separate `buttonLayout` and `textAlign` props to "match conventions."
+- **Don't skip the complexity check.** Proposing one component for a design that has 3 structurally different variants will force a split during implementation after the API is already approved.
+- **Don't use `get_design_context` camelCased property names in the proposed API.** Those names are normalized by MCP. Use the raw Figma property names (Title Case, spaces) in the mapping table so `figma-connect-component` can use them directly.
 
 ## Related Skills
 

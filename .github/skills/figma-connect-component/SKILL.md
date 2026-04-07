@@ -1,6 +1,8 @@
 ---
 name: figma-connect-component
-description: User provides a Figma component URL and wants to generate the Code Connect mapping for it.
+description: Generate Figma Code Connect mappings that link React components to their Figma counterparts. Use when a component exists in code and needs a Code Connect file so Figma shows real code snippets in Dev Mode. Also triggers on phrases like "connect this component to Figma", "generate Code Connect", "publish to Figma", "add figma.connect for this component", "link this to Figma Dev Mode".
+argument-hint: "<figma-url> [<component-file-path>]"
+user-invocable: true
 ---
 # Generate Figma Code Connect for React Components
 
@@ -63,9 +65,11 @@ If no URL or evidence file provided, search for it:
 3. Check `.temp/figma-explore/figma-components-index.json` or `.temp/figma-connect-shadcn/figma-components-index.json` for matching component names
 4. Check prior conversation context for file key
 
-### 3. Read Code Component
-- Read the specified component file
-- Identify: exports, props interface, component name
+### 3. Read Code Component and Inline the Mapping Contract
+
+1. Read the specified component file — identify exports, props interface, component name
+2. **If `.temp/design-components/{component-name}/proposed-api.md` exists, read it and inline the prop-to-Figma mapping table into your working context.** Do not reference this file by path during generation — the full mapping must be in active context so no property is guessed or missed.
+3. Cross-check: every prop in the React interface should have a corresponding Figma source in the table. Props with no Figma source (e.g., `className`, `id`) are omitted from Code Connect.
 
 ### 4. Generate Mapping
 - Map Figma properties to code props using `figma.*` helpers
@@ -375,6 +379,17 @@ figma.connect(Button, 'https://...', {
 })
 // Renders: <Button iconId="icon-heart" />
 ```
+
+## What NOT to Do
+
+These mistakes produce Code Connect files that fail silently or publish incorrect mappings:
+
+- **Don't use `get_design_context` property names.** MCP normalizes them to camelCase. The actual Figma property names are Title Case with spaces (e.g., `Has Icon`, `ButtonType`, `Size`). Use `get_metadata` output or the raw variant names from evidence files.
+- **Don't invent properties that don't exist in Figma.** If `proposed-api.md` lists a prop like `className` that has no Figma source, omit it from Code Connect entirely.
+- **Don't use JavaScript expressions in example templates.** `{hasIcon && <Icon />}` is invalid — Code Connect snippets are static strings. Use `figma.boolean('Has Icon', { true: <Icon />, false: undefined })` instead.
+- **Don't skip the `tsc --noEmit` check.** Run it after writing the `.figma.tsx` file. A type error in the Code Connect file will break the publish step.
+- **Don't map pseudo-states.** `hover`, `focus`, `pressed`, `active` Figma variants have no corresponding props — exclude them from all `figma.enum()` and `figma.boolean()` calls.
+- **Don't reference `proposed-api.md` by path during generation.** The mapping contract must be inlined into your working context in Step 3. Reaching back to re-read it mid-generation means the context wasn't loaded correctly.
 
 ## Output
 

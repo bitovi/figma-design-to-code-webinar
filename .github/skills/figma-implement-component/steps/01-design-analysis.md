@@ -41,9 +41,21 @@ Stop and invoke figma-design-react:
 ## After Both Files Exist
 
 1. Read `design-context.md` to get Figma data and URL
-2. Read `proposed-api.md` to understand props and variants
-3. Check if multiple components are recommended (see Step 1b)
-4. Mark Step 1 as completed in todo list
+2. Read `proposed-api.md` to understand props and variants, treat this as the implementation contract; inline the prop table and variant mappings into your working context rather than referencing the file by path
+3. **Take a `get_screenshot` for every distinct Figma variant**, not just the component node root. For a Checkbox with 5 states × 3 checked values, take screenshots of all 15 (or a representative sample if the count is very large). Save to `.temp/design-components/{component-name}/screenshots/`. These are your visual ground truth for implementation and Playwright testing.
+4. Check if multiple components are recommended (see Step 1b)
+5. Mark Step 1 as completed in todo list
+
+### Pre-Implementation Checklist
+
+Do not proceed to Step 2 until every box is checked:
+
+- [ ] `design-context.md` read and key values noted (colors, spacing, typography)
+- [ ] `proposed-api.md` read and prop interface inlined into working context
+- [ ] Screenshot taken for each structural variant (not just the default)
+- [ ] Interaction model confirmed: stateless / internally stateful / externally controlled / hybrid
+- [ ] CSS-only states identified (hover, focus, pressed → Tailwind pseudo-classes, NOT props)
+- [ ] If 3+ structural layouts exist: confirmed whether to build one component or split
 
 # Step 1b: Handle Multiple Component Recommendations
 

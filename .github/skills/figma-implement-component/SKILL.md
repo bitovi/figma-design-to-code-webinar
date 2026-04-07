@@ -1,6 +1,8 @@
 ---
 name: figma-implement-component
-description: Implement React components from Figma designs. Use after figma-design-react has analyzed the design. Delegates to create-react-modlet for folder structure, then adds Figma-specific implementation, stories for each variant, and README with design context.
+description: Implement React components from Figma designs. Use after figma-design-react has analyzed the design, or directly with a Figma URL to run analysis and implementation in one shot. Delegates to create-react-modlet for folder structure, then adds Figma-specific implementation, stories for each variant, and README with design context. Also triggers on phrases like "build this component from Figma", "implement this design", "create a component from this Figma URL", "turn this Figma into code".
+argument-hint: "<figma-url>"
+user-invocable: true
 ---
 
 # Skill: Implement Component from Figma Design
@@ -92,6 +94,17 @@ Each step contains detailed instructions and templates:
 5. Only provide final summary after all todos are marked completed
 
 This prevents common failures like skipping file creation steps or missing verification steps.
+
+## What NOT to Do
+
+These are the most common implementation failures:
+
+- **Don't implement only the default variant.** Every structural variant in Figma needs a corresponding story and visual test. A Checkbox with 5 state columns × 3 row variants must be verified in all states.
+- **Don't approximate Tailwind classes.** "It looks like `text-lg`" is wrong if the Figma value is `18px/24px` and `text-lg` resolves to `18px/28px`. Extract exact values from `design-context.md` and match them precisely.
+- **Don't skip the Playwright step.** Step 10 is not optional. It is the only way to confirm the rendered component matches the Figma screenshots from Step 1. A component that passes `npm test` but fails visual comparison is not done.
+- **Don't reference the spec files by path in your reasoning.** Inline the prop interface and variant mappings from `proposed-api.md` into your working context. If you're reaching back to re-read files mid-implementation, the context wasn't fully loaded in Step 1.
+- **Don't add props for CSS pseudo-states.** `hover`, `focus`, `pressed`, `active` Figma variants become Tailwind `hover:`, `focus-visible:`, `active:` classes — not props. The only state that becomes a prop is `disabled`.
+- **Don't treat "tests pass" as "done."** Unit tests confirm behavior; Playwright confirms visual fidelity against Figma. Both are required before the quality checklist can be marked complete.
 
 ## Related Skills
 
