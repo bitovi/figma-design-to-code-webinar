@@ -13,8 +13,7 @@
     "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"],
-    "baseUrl": ".",
+    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom","@figma/code-connect/figma-types"],
     "paths": {
       "@/*": ["./src/*"]
     }
