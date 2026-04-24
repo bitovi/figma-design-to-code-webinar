@@ -95,4 +95,54 @@ export const Mobile: Story = {
 };
 ```
 
+## Required: Figma Comparison Story
+
+**Every** stories file MUST include a `AllVariants` story that renders all variant combinations in a grid that mirrors how the component set is laid out in Figma. This enables direct visual comparison between the Figma design and the implementation.
+
+Layout rules:
+- Group rows by the **primary variant axis** (e.g. `variant` or `type`)
+- Group columns by the **secondary variant axis** (e.g. `size` or `state`)
+- Add a header row and header column with labels so each cell is identifiable
+- Use consistent spacing (`gap-3` or `gap-4`) and align items with `items-center`
+- Label rows/columns with `<span className="text-xs text-gray-400 w-20">` style text
+
+```tsx
+export const AllVariants: Story = {
+  name: 'All Variants',
+  render: () => {
+    const variants = ['primary', 'secondary', 'outline', 'ghost', 'destructive'] as const;
+    const sizes = ['lg', 'md', 'sm', 'xs'] as const;
+
+    return (
+      <div className="flex flex-col gap-4 p-4">
+        {/* Header row */}
+        <div className="flex items-center gap-3">
+          <span className="w-24 text-xs text-gray-400" />
+          {sizes.map((size) => (
+            <span key={size} className="w-24 text-center text-xs text-gray-400">
+              {size}
+            </span>
+          ))}
+        </div>
+        {/* Variant rows */}
+        {variants.map((variant) => (
+          <div key={variant} className="flex items-center gap-3">
+            <span className="w-24 text-xs text-gray-400">{variant}</span>
+            {sizes.map((size) => (
+              <div key={size} className="flex w-24 justify-center">
+                <ComponentName variant={variant} size={size}>
+                  Label
+                </ComponentName>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  },
+};
+```
+
+Adapt the axes and labels to match the actual component's props. If the component has boolean props (e.g. `disabled`, `withIcon`), add additional rows for those states below the main grid.
+
 After completion: Mark Step 6 as `completed` in todo list.
